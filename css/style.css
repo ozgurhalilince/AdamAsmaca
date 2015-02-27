@@ -1,0 +1,95 @@
+body{
+	background-color: grey;
+}
+
+#start{
+	font-size: 45px;
+	font-weight: bold;
+	text-align: center;
+	color: darkred;
+	padding-top: 7%;
+}
+
+#start button{
+	width: 23%;
+	height: 30%;
+	font-size: 35px;
+	font-weight: bold;
+}
+#prepare {
+	font-size: 45px;
+	text-align: center;
+	color: blue;
+	font-weight: bold;
+}
+
+#entered{
+	font-weight: bold;
+	font-size: 120%;
+	color: blue;
+}
+
+#prepare button{
+	color: white;
+	font-size: 40%;
+	background-color: blue;	
+	font-weight: bold;
+	height: 7%;
+	width: 10%;
+}
+#gameArea {
+	color: blue;
+	font-weight: bold;
+}
+#gameArea .menu{
+	height: 3%;
+	padding-top: 40px;
+	padding-right: 40px;
+}
+
+#gameArea .area {
+	padding-left: 20px;
+	font-size: 40px;
+	font-family: Verdana;
+	font-weight: bold;
+	color: blue;
+}
+
+#gameArea button{
+	color: white;
+	background-color: #FF6600;
+	text-align: center;
+	width: 90px;
+	height: 50px;
+}
+
+#gameArea table{
+	width:100%;
+}
+
+#letter {
+	color: darkred;
+	width: 200px;
+	height: 60px;
+	font-size: 30px;
+}
+
+#images{
+	text-align: right;
+	padding-top: 50px;
+}
+
+#footer table{
+	position:fixed;
+	width:100%;
+	left:0;
+	bottom: 0;
+	height: 17%;
+	font-weight: bold;
+	background-color: black;
+	text-align: center;
+	color: white;
+	padding-top: 10px;
+	padding-left: 25%;
+	padding-right: 25%;
+}
