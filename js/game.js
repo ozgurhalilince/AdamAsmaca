@@ -15,8 +15,10 @@ $(document).ready(function()
 		.css("right","0")
 		for (var i = 2; i <= 7 ; i++) {
 			$("#image"+i)
-			.css("display","none")
-			.css("right","0")
+			.css({
+				"display":"none",
+				"right":"0"
+			})
 		}
 
 		$("#start button")
@@ -83,17 +85,17 @@ $(document).ready(function()
 			}
 			for (var i = 1; i <= word.length; i++) {
 				$("#h"+i)
-				.css("background-color","blue")
-				.css("color","yellow")
-				.css("width","80px")
-				.css("height","80px")
-				.css("font-size","40px")
-				.css("font-weight","bold")
-				.css("text-align","center")
-				.css("padding-top","30px")
-				.css("display","block")
-			}
-
+				.css({ 'background-color': "blue",
+		            "color": "yellow",
+					"width": "80px",
+					"height": "80px",
+					"font-size": "40px",
+					"font-weight": "bold",
+					"text-align": "center",
+					"padding-top": "30px",
+					"display": "block"
+			     })
+		}
 			prepareDiv.style.display= 'none';
 			inputObject=document.getElementById('letter');
 			if (language=="tr") {
