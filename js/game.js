@@ -2,11 +2,13 @@ var language;
 var category;
 var word;
 var imageCounter = 1;
+var enteredLetters = [];
 
 $(document).ready(function()
 	{
 		startDiv=document.getElementById('start');
 		prepareDiv=document.getElementById('prepare');
+		//var startDiv=$('#start'), prepareDiv=$('#prepare');
 		prepareDiv.style.display= 'none';
 		gameDiv=document.getElementById('gameArea');
 		gameDiv.style.display= 'none';
@@ -142,32 +144,74 @@ $(document).ready(function()
 			document.getElementById('letter').value=""; 
 			evaluate(letter);
 		})
+		function isEntered(l){
+			for (var i =0; i < enteredLetters.length-1; i++) {
+				if (enteredLetters[i].toLowerCase() == l.toLowerCase()) 
+					return true;
+			}
+			return false;
+		}
 	
 		function evaluate(l){
+			enteredLetters.push(l);
 			flag = false;
-			if (l.length>1) {
-				if (language=="tr") 
-					alert("Lütfen sadece harf giriniz. Ve boş girmeyiniz")
-				else
-					alert("Please enter a letter");
-			}
 			if (!isLetter(l)) {
 				if (language=="tr") 
-					alert("Lütfen sadece harf giriniz. Ve boş girmeyiniz")
+					swal("Lütfen sadece harf giriniz. Ve boş girmeyiniz")
 				else
-					alert("Please enter a letter");
+					swal("Please enter a letter");
+			}
+			else if (l.length>1) {
+				if (language=="tr") 
+					swal("Lütfen sadece harf giriniz. Ve boş girmeyiniz")
+				else
+					swal("Please enter a letter");
+			}
+			else if(l==""){
+				//Hiç bir şey yapma
+			}
+			else if(isEntered(l)){
+				if (language=="tr") 
+					swal("Lütfen girdiğiniz harfi tekrar girmeyiniz")
+				else
+					swal("Please don't enter the letters you have entered");
 			}
 			else{
-				for (var i = 1; i <= word.length; i++) {
-					if (word[i-1] == l || word[i-1] == l.toUpperCase()) {
-						$("#h"+i)
-						.html(l);
-						flag=true;
-					};
-				}	
+				if (language=="tr") {	// Türkçede ı-i toUpperCase ile sıkıntı çıkartıyor.
+					for (var i = 1; i <= word.length; i++) {
+						if (l=="ı" || l=="I") {		
+							if (word[i-1]=="ı" || word[i-1]=="I") {
+								$("#h"+i)
+								.html(l);
+								flag=true;
+							};	
+						}
+						else if (l=="i" || l=="İ") {
+							if (word[i-1]=="i" || word[i-1]=="İ") {
+								$("#h"+i)
+								.html(l);
+								flag=true;
+							};	
+						}
+						else if (word[i-1].toUpperCase() == l.toUpperCase()) {
+							$("#h"+i)
+							.html(l);
+							flag=true;
+						}
+					}
+				}
+				else{
+					for (var i = 1; i <= word.length; i++) {
+						if (word[i-1].toUpperCase() == l.toUpperCase()) {
+							$("#h"+i)
+							.html(l);
+							flag=true;
+						}
+					}
+				}		
 				if (!flag) { //harf yoksa
 					var textP = document.getElementById('entered');
-					textP.innerHTML = textP.innerHTML + "  " +l;
+					textP.innerHTML = textP.innerHTML + "  " +l.toLowerCase();
 					$("#image"+imageCounter)
 					.css("display","none")
 					imageCounter++;
@@ -182,13 +226,11 @@ $(document).ready(function()
 					var end = true;
 					for (var i = 1; i <= word.length; i++) {
 						var divLetter = document.getElementById('h'+i).innerHTML;
-						if (divLetter.length==0) {
+						if (divLetter.length==0) 
 							end = false;
-						}
 					}
-					if (end) {
+					if (end) 
 						won();
-					};
 				}
 			}
 		}
@@ -221,6 +263,7 @@ $(document).ready(function()
 				.html("")
 				.css("display","none");
 			}
+			enteredLetters = [];
 			gameDiv.style.display= 'none';
 			prepareDiv.style.display="block";
 		}
