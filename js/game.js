@@ -145,11 +145,26 @@ $(document).ready(function()
 			evaluate(letter);
 		})
 		function isEntered(l){
-			for (var i =0; i < enteredLetters.length-1; i++) {
-				if (enteredLetters[i].toLowerCase() == l.toLowerCase()) 
-					return true;
+			if (language=="tr") {	//türkçede ı-i toUpperCase ile sıkıntı oluyor.
+				for (var i =0; i < enteredLetters.length-1; i++) {
+					if (l=="ı" || l=="I") {		
+						if (enteredLetters[i]=="ı" || enteredLetters[i]=="I") 
+							return true;
+					}	
+					else if (l=="i" || l=="İ"){ 
+						if (enteredLetters[i]=="i" || enteredLetters[i]=="İ") 
+							return true;
+					}
+					else if (enteredLetters[i].toLowerCase() == l.toLowerCase()) 
+						return true;
+				}
+			}else{
+				for (var i =0; i < enteredLetters.length-1; i++) {
+					if (enteredLetters[i].toLowerCase() == l.toLowerCase()) 
+						return true;
+				}
+				return false;
 			}
-			return false;
 		}
 	
 		function evaluate(l){
@@ -182,20 +197,20 @@ $(document).ready(function()
 						if (l=="ı" || l=="I") {		
 							if (word[i-1]=="ı" || word[i-1]=="I") {
 								$("#h"+i)
-								.html(l);
+								.html("ı");
 								flag=true;
 							};	
 						}
 						else if (l=="i" || l=="İ") {
 							if (word[i-1]=="i" || word[i-1]=="İ") {
 								$("#h"+i)
-								.html(l);
+								.html("i");
 								flag=true;
 							};	
 						}
 						else if (word[i-1].toUpperCase() == l.toUpperCase()) {
 							$("#h"+i)
-							.html(l);
+							.html(l.toLowerCase());
 							flag=true;
 						}
 					}
@@ -211,7 +226,12 @@ $(document).ready(function()
 				}		
 				if (!flag) { //harf yoksa
 					var textP = document.getElementById('entered');
-					textP.innerHTML = textP.innerHTML + "  " +l.toLowerCase();
+					if (l=="I" || l == "ı")
+						textP.innerHTML = textP.innerHTML + "  ı";
+					else if (l=="İ" || l == "i")
+						textP.innerHTML = textP.innerHTML + "  i";
+					else
+						textP.innerHTML = textP.innerHTML + "  " +l.toLowerCase();
 					$("#image"+imageCounter)
 					.css("display","none")
 					imageCounter++;
